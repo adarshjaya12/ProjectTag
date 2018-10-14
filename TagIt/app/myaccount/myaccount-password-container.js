@@ -13,27 +13,26 @@ Object.defineProperty(exports, "__esModule", { value: true });
 require("es6-promise/auto");
 var React = require("react");
 var fetch = require("isomorphic-fetch");
-var LOGIN_USER = "/api/account/LoginAccount";
-var AccountLoginContainer = /** @class */ (function (_super) {
-    __extends(AccountLoginContainer, _super);
-    function AccountLoginContainer(props) {
+var ACCOUNT_PASSWORD_UPDATE = "/api/Account/UpdatePassword";
+var MyAccountPasswordContainer = /** @class */ (function (_super) {
+    __extends(MyAccountPasswordContainer, _super);
+    function MyAccountPasswordContainer(props) {
         var _this = _super.call(this, props) || this;
         _this.state = {
-            user: {},
+            password: {},
             registerMessage: '',
-            success: false
         };
         return _this;
     }
-    AccountLoginContainer.prototype.LoginUser = function () {
+    MyAccountPasswordContainer.prototype.updatePassword = function () {
         var _this = this;
-        var apiUrl = LOGIN_USER;
+        var apiUrl = ACCOUNT_PASSWORD_UPDATE;
         fetch(apiUrl, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json; charset=utf-8'
             },
-            body: JSON.stringify(this.state.user)
+            body: JSON.stringify(this.state.password)
         }).then(function (response) {
             if (response.status >= 200 && response.status < 300) {
             }
@@ -41,20 +40,19 @@ var AccountLoginContainer = /** @class */ (function (_super) {
         }).then(function (body) {
             _this.setState({
                 registerMessage: body.message,
-                success: body.success
             });
         });
     };
-    AccountLoginContainer.prototype.render = function () {
+    MyAccountPasswordContainer.prototype.render = function () {
         return (React.createElement("div", null,
             React.createElement("div", null,
-                React.createElement("input", { type: "textbox", value: this.state.user.username, placeholder: "Username" })),
+                React.createElement("input", { type: "textbox", value: this.state.password.oldPassword, placeholder: "Old Password" })),
             React.createElement("div", null,
-                React.createElement("input", { type: "textbox", value: this.state.user.password, placeholder: "Password" })),
+                React.createElement("input", { type: "textbox", value: this.state.password.newPassword, placeholder: "New Password" })),
             React.createElement("div", null,
-                React.createElement("button", { type: "submit", onClick: this.LoginUser.bind(this) }, "Login"))));
+                React.createElement("button", { type: "submit", onClick: this.updatePassword.bind(this) }, "Register"))));
     };
-    return AccountLoginContainer;
+    return MyAccountPasswordContainer;
 }(React.Component));
-exports.default = AccountLoginContainer;
-//# sourceMappingURL=account-login-container.js.map
+exports.default = MyAccountPasswordContainer;
+//# sourceMappingURL=myaccount-password-container.js.map

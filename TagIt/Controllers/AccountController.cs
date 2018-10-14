@@ -23,6 +23,13 @@ namespace TagIt.Controllers
         public string LastName { get; set; }
     }
 
+
+    public class Password
+    {
+        public string OldPassword { get; set; }
+        public string NewPassword { get; set; }
+    }
+
     [Route("api/account/")]
     public class AccountController : Controller
     {
@@ -46,6 +53,13 @@ namespace TagIt.Controllers
         public JsonResult CreateAccount([FromBody]User user)
         {
             UserService.CreateUser(user);
+            return new JsonResult(true);
+        }
+
+        [HttpPost("UpdatePassword")]
+        public JsonResult UpdatePassword([FromBody]Password user)
+        {
+            UserService.UpdatePassword(user);
             return new JsonResult(true);
         }
 

@@ -6,7 +6,9 @@ using System.Threading.Tasks;
 using TagIt.Controllers;
 using TagIt.DataObject;
 using TagIt.DBContext;
+using TagIt.Interface.Repository;
 using TagIt.Interface.Service;
+using System.Web;
 
 namespace TagIt.Implementation.Service
 {
@@ -19,6 +21,19 @@ namespace TagIt.Implementation.Service
     }
     public class UserService : IUserService
     {
+        ISessionRepository SessionRepository { get; set; }
+        public UserService(ISessionRepository sessionRepository)
+        {
+            SessionRepository = sessionRepository;
+        }
+
+        private UserObject CurrentUser
+        {
+            get
+            {
+                return SessionRepository.UserObject;
+            }
+        }
 
         private TagItDBContext DatabaseObject
         {
@@ -69,12 +84,36 @@ namespace TagIt.Implementation.Service
             return valid;
         }
 
+        public bool UpdatePassword(Password password)
+        {
+            var user = CurrentUser;
+            var userObject = DatabaseObject.UserObject.FirstOrDefault(p => p.UserName == user.UserName);
+            if (userObject != null && AuthenticatePassword(userObject, password.OldPassword))
+            {
+                EncryptedObject hashedPassword = EncryptedPassword(password.NewPassword);
+                using (TagItDBContext dbContext = new TagItDBContext())
+                {
+                    userObject.HashedPassword = hashedPassword.HasedPassword;
+                    userObject.PasswordSalt = hashedPassword.Salt;
+                    dbContext.UserObject.Add(userObject);
+                    dbContext.SaveChanges();
+                    return true;
+                }
+            }
+            return false;
+        }
+
         public bool AuthenticateUser(User user)
         {
             var userAccount = DatabaseObject.UserObject.FirstOrDefault(p => p.UserName == user.Username);
             if (userAccount == null)
                 return false;
-            return AuthenticatePassword(userAccount,user.Password);
+            var isSuccess =  AuthenticatePassword(userAccount,user.Password);
+            if(isSuccess)
+            {
+                SessionRepository.UserObject = userAccount;
+            }
+            return false;
         }
 
         public bool CreateUser(User user)

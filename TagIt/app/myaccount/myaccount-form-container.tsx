@@ -19,10 +19,10 @@ interface IUser{
     lastName: string;
 }
 
-const CREATE_ACCOUNT="/api/Account/CreateAccount"
+const UPDATE_USER ="/api/Account/UpdateAccount"
 const TAG_REDIRECT="";
 
-class AccountRegisterContainer extends React.Component<any, AccountRegisterState>{
+class MyAccountFormContainer extends React.Component<any, AccountRegisterState>{
     constructor(props: any) {
         super(props)
         this.state={
@@ -33,8 +33,8 @@ class AccountRegisterContainer extends React.Component<any, AccountRegisterState
         
     }
 
-    registerUser():void{
-        var apiUrl = CREATE_ACCOUNT;
+    updateUser():void{
+        var apiUrl = UPDATE_USER;
         fetch(apiUrl,{
             method:'POST',
             headers: {
@@ -56,17 +56,15 @@ class AccountRegisterContainer extends React.Component<any, AccountRegisterState
 
     render() {
         return (
-        <div>
-            <div><input type="textbox" value={this.state.user.username} placeholder="Username"/></div>
-            <div><input type="textbox" value={this.state.user.password} placeholder="Password"/></div>
+            <div>
+                <div><input type="textbox" value={this.state.user.username} placeholder="Username" disabled /></div>
             <div><input type="textbox" value={this.state.user.firstName} placeholder="First Name"/></div>
             <div><input type="textbox" value={this.state.user.lastName} placeholder="Last Name"/></div>
             <div><input type="textbox" value={this.state.user.userEmail} placeholder="Email"/></div>
-            <div><button type="submit" onClick={this.registerUser.bind(this)} >Register</button></div>
-        </div>
-        );
+            <div><button type="submit" onClick={this.updateUser.bind(this)} >Register</button></div>
+        </div>);
     }
 
 }
 
-export default AccountRegisterContainer;
+export default MyAccountFormContainer;

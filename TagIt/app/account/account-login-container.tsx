@@ -4,12 +4,12 @@ import * as _ from 'lodash';
 import * as fetch from 'isomorphic-fetch';
 
 interface AccountLoginState{
-    user : User;
+    user: IUser;
     registerMessage:string;
     success:boolean;
 }
 
-interface User{
+interface IUser{
     id: string;
     username: string;
     password: string;
@@ -24,7 +24,7 @@ class AccountLoginContainer extends React.Component<any, AccountLoginState>{
     constructor(props: any) {
         super(props)
         this.state={
-            user: undefined,
+            user: {} as IUser ,
             registerMessage:'',
             success: false
         }
@@ -54,9 +54,9 @@ class AccountLoginContainer extends React.Component<any, AccountLoginState>{
     render() {
         return (
         <div>
-            <input type="textbox" value={this.state.user.username} placeholder="Username"/>
-            <input type="textbox" value={this.state.user.password} placeholder="Password"/>
-            <button type="submit" onClick={this.LoginUser.bind(this)} value="Login" />
+            <div><input type="textbox" value={this.state.user.username} placeholder="Username"/></div>
+            <div><input type="textbox" value={this.state.user.password} placeholder="Password"/></div>
+            <div><button type="submit" onClick={this.LoginUser.bind(this)}>Login</button></div>
         </div>);
     }
 }

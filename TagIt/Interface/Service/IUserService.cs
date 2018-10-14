@@ -13,6 +13,8 @@ namespace TagIt.Interface.Service
 
         void UpdateUser(User user);
 
+        bool UpdatePassword(Password password);
+
         UserObject GetUser(Guid id);
 
         bool AuthenticateUser(User user);

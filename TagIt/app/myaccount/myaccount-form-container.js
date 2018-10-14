@@ -13,11 +13,11 @@ Object.defineProperty(exports, "__esModule", { value: true });
 require("es6-promise/auto");
 var React = require("react");
 var fetch = require("isomorphic-fetch");
-var CREATE_ACCOUNT = "/api/Account/CreateAccount";
+var UPDATE_USER = "/api/Account/UpdateAccount";
 var TAG_REDIRECT = "";
-var AccountRegisterContainer = /** @class */ (function (_super) {
-    __extends(AccountRegisterContainer, _super);
-    function AccountRegisterContainer(props) {
+var MyAccountFormContainer = /** @class */ (function (_super) {
+    __extends(MyAccountFormContainer, _super);
+    function MyAccountFormContainer(props) {
         var _this = _super.call(this, props) || this;
         _this.state = {
             user: {},
@@ -26,9 +26,9 @@ var AccountRegisterContainer = /** @class */ (function (_super) {
         };
         return _this;
     }
-    AccountRegisterContainer.prototype.registerUser = function () {
+    MyAccountFormContainer.prototype.updateUser = function () {
         var _this = this;
-        var apiUrl = CREATE_ACCOUNT;
+        var apiUrl = UPDATE_USER;
         fetch(apiUrl, {
             method: 'POST',
             headers: {
@@ -46,12 +46,10 @@ var AccountRegisterContainer = /** @class */ (function (_super) {
             });
         });
     };
-    AccountRegisterContainer.prototype.render = function () {
+    MyAccountFormContainer.prototype.render = function () {
         return (React.createElement("div", null,
             React.createElement("div", null,
-                React.createElement("input", { type: "textbox", value: this.state.user.username, placeholder: "Username" })),
-            React.createElement("div", null,
-                React.createElement("input", { type: "textbox", value: this.state.user.password, placeholder: "Password" })),
+                React.createElement("input", { type: "textbox", value: this.state.user.username, placeholder: "Username", disabled: true })),
             React.createElement("div", null,
                 React.createElement("input", { type: "textbox", value: this.state.user.firstName, placeholder: "First Name" })),
             React.createElement("div", null,
@@ -59,9 +57,9 @@ var AccountRegisterContainer = /** @class */ (function (_super) {
             React.createElement("div", null,
                 React.createElement("input", { type: "textbox", value: this.state.user.userEmail, placeholder: "Email" })),
             React.createElement("div", null,
-                React.createElement("button", { type: "submit", onClick: this.registerUser.bind(this) }, "Register"))));
+                React.createElement("button", { type: "submit", onClick: this.updateUser.bind(this) }, "Register"))));
     };
-    return AccountRegisterContainer;
+    return MyAccountFormContainer;
 }(React.Component));
-exports.default = AccountRegisterContainer;
-//# sourceMappingURL=account-register-container.js.map
+exports.default = MyAccountFormContainer;
+//# sourceMappingURL=myaccount-form-container.js.map

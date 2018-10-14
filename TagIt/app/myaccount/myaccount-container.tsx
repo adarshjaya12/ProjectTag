@@ -2,9 +2,8 @@ import 'es6-promise/auto';
 import * as React from 'react';
 import * as _ from 'lodash';
 import * as fetch from 'isomorphic-fetch';
-import AccountLoginContainer from './account-login-container';
-import AccountRegisterContainer from './account-register-container';
-
+import MyAccountFormContainer from './myaccount-form-container';
+//import MyAccountPasswordContainer from 'myaccount-password-container';
 
 interface IUser{
     id: string;
@@ -26,10 +25,7 @@ class AccountContainer extends React.Component<any, any>{
         return (
         <div>
             <div>
-                <AccountLoginContainer/>
-            </div>
-            <div>
-                <AccountRegisterContainer/>
+                    <MyAccountFormContainer/>
             </div>
         </div>
         );

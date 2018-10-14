@@ -15,7 +15,7 @@ namespace TagIt.Test
         [TestInitialize]
         public void Initialize()
         {
-            userService = new UserService();
+            userService = new UserService(null);
         }
         [TestMethod]
         public void CreateAndAuthenticate()

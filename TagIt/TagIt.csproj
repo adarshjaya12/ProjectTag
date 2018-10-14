@@ -23,6 +23,9 @@
     <None Update="app\index-update-form.js">
       <DependentUpon>index-update-form.tsx</DependentUpon>
     </None>
+    <None Update="app\myaccount\myaccount-password-container.js.map">
+      <DependentUpon>myaccount-password-container.js</DependentUpon>
+    </None>
   </ItemGroup>
 
 </Project>
